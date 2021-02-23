@@ -32,6 +32,15 @@ export default class FastState {
   register(component) {
     this.registerComponent(component);
   }
+  use(component){
+    if(!this.isRegistered(component)){
+      this.register(component);
+    }
+    return this;
+  }
+  isRegistered(component){
+    return this.components.filter(p=>p.component == component).length > 0;
+  }
   registerComponent(component) {
     this.components.push({ component: component, forceUpdate: component.forceUpdate });
   }
