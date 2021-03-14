@@ -1,3 +1,4 @@
+
 export default class FastState {
   constructor() {
     this.faststate_components = [];
@@ -31,13 +32,13 @@ export default class FastState {
         }
       })
       for (var ureg of _unregisters) {
-        _this.unregisterComponent(ureg);
+        FastState.unregister(_this, ureg);
       }
     } catch (err) { console.error(err); }
     this.faststate_isupdate = false;
   }
   register(component) {
-    this.registerComponent(component);
+    this.faststate_components.push({ component: component, forceUpdate: component.forceUpdate });
   }
   use(component) {
     if (!this.isRegistered(component)) {
@@ -48,15 +49,20 @@ export default class FastState {
   isRegistered(component) {
     return this.faststate_components.filter(p => p.component == component).length > 0;
   }
-  registerComponent(component) {
-    this.faststate_components.push({ component: component, forceUpdate: component.forceUpdate });
-  }
-  unregisterComponent(component) {
-    for (var i = 0; i < this.faststate_components.length; i++) {
-      var c = this.faststate_components[i];
+  static unregister(state, component) {
+    for (var i = 0; i < state.faststate_components.length; i++) {
+      var c = state.faststate_components[i];
       if (c.component == component) {
-        this.faststate_components.splice(i, 1);
+        state.faststate_components.splice(i, 1);
         return;
+      }
+    }
+  }
+  static functional() {
+    const [v, setV] = React.useState(0);
+    return {
+      v, setV, forceUpdate: () => {
+        setV((v + 1) % 100);
       }
     }
   }
