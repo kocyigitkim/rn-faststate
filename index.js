@@ -82,33 +82,33 @@ export default class FastState {
     }
   }
 
-  static createInput(state, name) {
+  static createInput(state, name, defaultValue) {
     const changeEvent = name + "_OnChange";
     const setAction = "set" + name.substr(0, 1).toUpperCase() + name.substr(1);
     if (!state[changeEvent]) {
       FastState.registerAction(state, changeEvent, (value) => { state[name] = value && value.target ? value.target.value : value; });
       state[setAction] = state[changeEvent];
-      state[name] = null;
+      state[name] = defaultValue;
     }
     return { value: (state[name] || ""), onChange: state[changeEvent] };
   }
-  static createSelect(state, name) {
+  static createSelect(state, name, defaultValue) {
     const changeEvent = name + "_OnChange";
     const setAction = "set" + name.substr(0, 1).toUpperCase() + name.substr(1);
     if (!state[changeEvent]) {
       FastState.registerAction(state, changeEvent, (value) => { state[name] = value; });
       state[setAction] = state[changeEvent];
-      state[name] = null;
+      state[name] = defaultValue;
     }
     return { options: (state[name] || ""), onChange: state[changeEvent] };
   }
-  static createDateTime(state, name) {
+  static createDateTime(state, name, defaultValue) {
     const changeEvent = name + "_OnChange";
     const setAction = "set" + name.substr(0, 1).toUpperCase() + name.substr(1);
     if (!state[changeEvent]) {
       FastState.registerAction(state, changeEvent, (value) => { state[name] = value && value.target ? value.target.value : value; });
       state[setAction] = state[changeEvent];
-      state[name] = null;
+      state[name] = defaultValue;
     }
     return { value: (state[name] || ""), onChange: state[changeEvent] };
   }
