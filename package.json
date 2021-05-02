@@ -1,6 +1,6 @@
 {
   "name": "faststate-rn",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "index.js",
   "dependencies": {
     "react": "16.13.1",
